@@ -1,0 +1,155 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v1912                                 |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      createPatchDict;
+}
+
+pointSync false;
+
+// Patches to create.
+patches
+(
+    {   
+        // Name of new patch
+        name bottom;
+
+        // Dictionary to construct new patch from
+        patchInfo
+        {   
+            type wall;
+        }
+         // How to construct: either from 'patches' or 'set'
+        constructFrom patches;
+
+        // If constructFrom = patches : names of patches. Wildcards allowed.
+        patches ( bottom1);
+
+    }
+    {
+        // Name of new patch
+        name top;
+
+        // Dictionary to construct new patch from
+        patchInfo
+        {
+            type wall;
+        }
+
+        // How to construct: either from 'patches' or 'set'
+        constructFrom patches;
+
+        // If constructFrom = patches : names of patches. Wildcards allowed.
+        patches ( top1);
+
+        // If constructFrom = set : name of faceSet
+        //set f0;
+    }
+
+     {
+        // Name of new patch
+        name left;
+
+        // Dictionary to construct new patch from
+        patchInfo
+        {
+            type wall;
+        }
+
+        // How to construct: either from 'patches' or 'set'
+        constructFrom patches;
+
+        // If constructFrom = patches : names of patches. Wildcards allowed.
+        patches ( left1);
+
+        // If constructFrom = set : name of faceSet
+        //set f0;
+    }
+
+     {
+        // Name of new patch
+        name right;
+
+        // Dictionary to construct new patch from
+        patchInfo
+        {
+            type wall;
+        }
+
+        // How to construct: either from 'patches' or 'set'
+        constructFrom patches;
+
+        // If constructFrom = patches : names of patches. Wildcards allowed.
+        patches ( right1);
+
+        // If constructFrom = set : name of faceSet
+        //set f0;
+    }
+
+
+    {
+        name inlet;
+        patchInfo
+        {
+            type cyclic;
+            neighbourPatch outlet;
+
+            // Optional: explicitly set transformation tensor.
+            // Used when matching and synchronising points.
+            //transform rotational;
+            //rotationAxis (1 0 0);
+            //rotationCentre (0 0 0);
+            transform translational;
+            separationVector (0.6 0 0);
+
+            // Optional non-default tolerance to be able to define cyclics
+            // on bad meshes
+            //matchTolerance 1E-2;
+        }
+
+        // How to construct: either from 'patches' or 'set'
+        constructFrom patches;
+
+        // If constructFrom = patches : names of patches. Wildcards allowed.
+        patches ( inlet);
+    }
+
+    {
+        name outlet;
+        patchInfo
+        {
+            type cyclic;
+            neighbourPatch inlet;
+
+            // Optional: explicitly set transformation tensor.
+            // Used when matching and synchronising points.
+            //transform rotational;
+            //rotationAxis (1 0 0);
+            //rotationCentre (0 0 0);
+            transform translational;
+            separationVector (-0.6 0 0);
+
+            // Optional non-default tolerance to be able to define cyclics
+            // on bad meshes
+            //matchTolerance 1E-2;
+        }
+
+            // How to construct: either from 'patches' or 'set'
+        constructFrom patches;
+
+        // If constructFrom = patches : names of patches. Wildcards allowed.
+        patches ( outlet);
+
+    }
+
+
+
+);

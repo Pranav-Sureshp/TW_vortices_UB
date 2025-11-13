@@ -1,0 +1,78 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v2306                                 |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      fvOptions;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+momentumSource
+{
+    type            meanVelocityForce;
+
+    selectionMode   all;
+
+    fields          (U);
+    Ubar            (1.0  0  0);
+    relaxation       0.2 ; 
+}
+
+
+//pressureGradient
+//{
+//    type            vectorSemiImplicitSource;   // <-- correct class name
+//
+//    selectionMode   all;                  // whole domain
+//    volumeMode      specific;             // source per m³ (N/m³)
+//
+//    sources
+//    {
+//        U     ((-1.0 0 0) 0 );
+//    }
+//}
+
+//directionalPressureGradientExplicitSource1
+//{
+//    // Mandatory entries (unmodifiable)
+//    type            directionalPressureGradientExplicitSource;
+//
+//    // Mandatory entries (unmodifiable)
+//    model       constant;
+//    fields      (U);
+//
+//    // Mandatory entries (runtime modifiable)
+//    flowDir     (1 1 0);
+//    faceZone    <faceZoneName>;
+//
+//    // Conditional mandatory entries (unmodifiable)
+//
+//        // when <timePath>/uniform/<name>Properties file exists
+//        gradient    <vectorField>; // reading from the aforementioned file
+//
+//        // when model=DarcyForchheimer
+//        // deltaP = (D*mu + 0.5*rho*magUn)*magUn*length
+//        D           5e7;
+//        I           0;
+//        length      1e-3;
+//
+//        // when model=constant
+//        pressureDrop    40;
+//
+//        // when model=volumetricFlowRateTable
+//        outOfBounds     clamp;
+//        fileName        "volFlowRateTable";
+//
+//    // Optional entries (runtime modifiable)
+//    relaxationFactor    0.3;
+//
+//}
+
+// ************************************************************************* //

@@ -1,0 +1,15 @@
+#!/bin/bash
+
+source ~/.openfoam_v2206_profile
+
+fluent_conversion="fluent3DMeshToFoam"
+fluent_mesh="./rect_mesh_TW.msh"
+
+fluentMesh_start=$(date +%s.%3N)
+$fluent_conversion $fluent_mesh 2>&1 | tee log.$fluent_conversion
+fluentMesh_end=$(date +%s.%3N)
+fluentMesh_elapsed=$(echo "scale=3; $fluentMesh_end - $fluentMesh_start" | bc)
+echo -e "$fluent_conversion \t" + $fluentMesh_elapsed > log.timings
+
+checkMesh  2>&1 | tee log.checkMesh
+
